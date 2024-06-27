@@ -1,0 +1,54 @@
+@import url("https://fonts.googleapis.com/css2?family=Gabarito:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap");
+
+html,
+body,
+#root,
+#defaultLayout,
+#guestLayout {
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+body {
+    font-family: "Gabarito", sans-serif;
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    color: #212121;
+    font-weight: 600;
+}
+
+:root {
+    --background: #f6f6f6;
+    // --background: white;
+    --navbar-width: 250px;
+    --navbar-width-min: 60px;
+    --navbar-dark-primary: #18283b;
+    --navbar-dark-secondary: #2c3e50;
+    --navbar-light-primary: #f5f6fa;
+    --navbar-light-secondary: #86baff;
+    // --tab-bg: #f6f6f6;
+    --fallback-b2: #8799e1;
+    --tw-border-opacity: 0.8;
+    --fallback-b1: #acb9f3;
+    --b1: #f7f7f8;
+    --b2: #4a4d5d;
+    --tw-bg-opacity: 0.8;
+
+    // navbar partial
+    --menu-item-size: 50px;
+    --tw-text-opacity: 1;
+    --bluee-color: rgb(96 165 250 / var(--tw-text-opacity));
+    --blue-color: #099c95;
+    --dark-green-color: #175b52;
+    --white-color: #FFF;
+}

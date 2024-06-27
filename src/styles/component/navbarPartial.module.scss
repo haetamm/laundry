@@ -1,0 +1,93 @@
+
+.mainMenu {
+    display: none;
+    list-style: none;
+    margin: auto 0;
+    padding: 0.6em 0 0 0;
+
+    > li {
+        box-sizing: border-box;
+        height: 40px;
+        width: calc(3.5 * 35px);
+        line-height: 35px;
+        padding: 0 2em;
+        margin: 1px;
+        transition: 0.5s linear all;
+        background: var(--bluee-color);
+        color: var(--dark-green-color);
+        font-size: 16px;
+        user-select: none;
+
+        &:not(.withSubmenu) {
+            clip-path: polygon(10% 0%, 0% 100%, 95% 100%, 100% 50%, 95% 0%);
+            shape-outside: polygon(10% 0%, 0% 100%, 95% 100%, 100% 50%, 95% 0%);
+        }
+
+        &:nth-child(2) {
+            transform: translateX(-5%);
+        }
+
+        &:nth-child(3) {
+            transform: translateX(-10%);
+        }
+
+        &:nth-child(4) {
+            transform: translateX(-15%);
+        }
+
+        &:hover:not(.active) {
+            background: linear-gradient(to right, var(--bluee-color), var(--blue-color));
+            color: var(--white-color);
+        }
+
+        &:active:not(.active),
+        &:active:not(.withSubmenu) {
+            background: var(--blue-color);
+            color: var(--white-color);
+        }
+
+        i {
+            margin-right: 5px;
+        }
+
+        &:hover i:not(.active) {
+            color: #175c58;
+        }
+
+        &.active {
+            color: var(--white-color);
+            background: var(--blue-color);
+            cursor: default;
+            text-shadow: 1px 1px 1px var(--dark-green-color);
+            font-size: 18px;
+        }
+    }
+}
+
+
+@media (min-width: 600px) {
+    .mainMenu {
+        display: flex;
+    }
+}
+
+@media (min-width: 768px) {
+    .mainMenu {
+        > li {
+            height: 45px;
+            width: calc(3.5 * 40px);
+            line-height: 45px;         
+        }
+    }
+}
+
+@media (min-width: 1024px) {
+    .mainMenu {
+        > li {
+            height: var(--menu-item-size);
+            width: calc(3.5 * var(--menu-item-size));
+            line-height: var(--menu-item-size);
+            
+        }
+    }
+}

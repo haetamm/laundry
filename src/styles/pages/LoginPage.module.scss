@@ -1,0 +1,90 @@
+
+* {
+  box-sizing: border-box;
+
+}
+
+.loginPage {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: radial-gradient(circle at 67% 83%, hsla(317,0%,96%,0.05) 0%, hsla(317,0%,96%,0.05) 1%,transparent 1%, transparent 5%,transparent 5%, transparent 100%),radial-gradient(circle at 24% 80%, hsla(317,0%,96%,0.05) 0%, hsla(317,0%,96%,0.05) 27%,transparent 27%, transparent 63%,transparent 63%, transparent 100%),radial-gradient(circle at 23% 5%, hsla(317,0%,96%,0.05) 0%, hsla(317,0%,96%,0.05) 26%,transparent 26%, transparent 82%,transparent 82%, transparent 100%),radial-gradient(circle at 21% 11%, hsla(317,0%,96%,0.05) 0%, hsla(317,0%,96%,0.05) 35%,transparent 35%, transparent 45%,transparent 45%, transparent 100%),radial-gradient(circle at 10% 11%, hsla(317,0%,96%,0.05) 0%, hsla(317,0%,96%,0.05) 21%,transparent 21%, transparent 81%,transparent 81%, transparent 100%),radial-gradient(circle at 19% 61%, hsla(317,0%,96%,0.05) 0%, hsla(317,0%,96%,0.05) 20%,transparent 20%, transparent 61%,transparent 61%, transparent 100%),radial-gradient(circle at 13% 77%, hsla(317,0%,96%,0.05) 0%, hsla(317,0%,96%,0.05) 63%,transparent 63%, transparent 72%,transparent 72%, transparent 100%),radial-gradient(circle at 30% 93%, hsla(317,0%,96%,0.05) 0%, hsla(317,0%,96%,0.05) 33%,transparent 33%, transparent 82%,transparent 82%, transparent 100%),linear-gradient(90deg, rgb(22, 176, 207),rgb(103, 7, 215));
+
+    .form {
+        width: 360px;
+        position: relative;
+        z-index: 1;
+        max-width: 360px;
+        padding: 34px;
+        overflow: auto;
+
+        .title {
+            margin-bottom: 3px;
+            text-align: center;
+            font-size: 28px;
+        }
+
+        // .alert {
+        //     padding: 5px 10px 5px 10px;
+        //     background-color: #ff4040;
+        //     color: white;
+        //     margin-bottom: 3px;
+        //     display: block;
+        //     font-size: 13px;
+        // }
+
+        // .message {
+        //     margin: 15px 0 0;
+        //     color: #b3b3b3;
+        //     font-size: 16px;
+        //     text-align: center;
+
+        //     a {
+        //         color: black;
+        //         text-decoration: none;
+        //     }
+        // }
+
+        .btn {
+            font-family: "Roboto", sans-serif;
+            outline: 0;
+
+            border: 0;
+            text-decoration: none;
+            padding: 15px;
+            color: #ffffff;
+            font-size: 16px;
+            -webkit-transition: all 0.3 ease;
+            transition: all 0.3 ease;
+            width: 100%;
+        }
+    }
+}
+
+
+@media only screen and (min-height: 0px) {
+    .loginPage {
+        align-items: normal;
+    }
+}
+
+@media only screen and (min-height: 610px) {
+    .loginPage{
+        align-items: center;
+
+        .form {
+            border-radius: 0px;
+        }
+    }
+}
+
+@media only screen and (min-width: 1024px) {
+    .loginPage {
+        align-items: center;
+
+        .form {
+            border-radius: 0px;
+        }
+    }
+}
