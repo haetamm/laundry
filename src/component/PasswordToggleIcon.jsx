@@ -9,8 +9,8 @@ const PasswordToggleIcon = ({ showPassword, toggleShowPassword }) => (
 );
 
 PasswordToggleIcon.propTypes = {
-    showPassword: PropTypes.bool.isRequired,
-    toggleShowPassword: PropTypes.func.isRequired,
+    showPassword: PropTypes.bool,
+    toggleShowPassword: PropTypes.func,
 }
 
 export default PasswordToggleIcon;

@@ -75,7 +75,7 @@ const TransactionModalForm = () => {
             toast.success(`transaksi an. ${transaction.customer.name} berhasil dibuat`, {duration: 2000})
         } catch (e) {
             console.error(e)
-            toast.error(e.response.data.status.description)
+            toast.error(e.response.data.message)
         }
     }
 

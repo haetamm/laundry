@@ -22,6 +22,7 @@ export const AdminDetail = () => {
             name: '',
             username: '',
             email: '',
+            password: '',
             role: ''
         },
         resolver: zodResolver(userFormSchema),
@@ -31,14 +32,14 @@ export const AdminDetail = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const { data: dataResponse } = await axiosInstance.get(`users/${id}`)
-                const { data: userData } = dataResponse
-                setUser(userData)
-                form.reset(userData)
+                const { data: reseponse } = await axiosInstance.get(`users/${id}`)
+                const { data: user } = reseponse
+                setUser(user)
+                form.reset(user)
             } catch (e) {
                 if (e.response.status === 404) {
                     navigate(`/dashboard/user`)
-                    toast.error(e.response.data.status.description)
+                    toast.error(e.response.data.message)
                 }
                 console.error('Error fetching users:', e)
             }
@@ -53,6 +54,7 @@ export const AdminDetail = () => {
             name: user?.name || '',
             username: user?.username || '',
             email: user?.email || '',
+            password: '',
             role: user?.role || '',
         })
     }
@@ -63,18 +65,20 @@ export const AdminDetail = () => {
             id: user.id,
         }
         try {
-            const { data: response } = await axiosInstance.put('users/', userUpdate);
+            const { data: response } = await axiosInstance.put('users', userUpdate);
             const { data: user } = response
             setUser(user)
             setOpenEdit(false)
             toast.success(`User ${user.name} berhasil diupdate`, { duration: 2000 })
         } catch (e) {
             console.log(e)
-            toast.error(e.response.data.status.description)
+            if (e.response.status === 400) {
+                toast.error(e.response.data.message)
+            }
         }
     }
 
-    if (role !== 'admin') {
+    if (role !== 'ADMIN') {
         return <Navigate to={'/dashboard'} />
     }
 
@@ -91,7 +95,7 @@ export const AdminDetail = () => {
                     openEdit={openEdit}
                 />
                 <div className="mt-5">     
-                    <UserForm form={form} openEdit={openEdit} />
+                    <UserForm form={form} openEdit={openEdit} placeholder="New Password"/>
                     
                     {openEdit && (
                         <button

@@ -11,12 +11,11 @@ const Transaction = () => {
   const [transactions, setTransactions] = useState([])
   const [loading, setLoading] = useState(false)
 
-  
   const fetchData = async () => {
     setLoading(true)
     try {
-      const {data: dataResponse} = await axiosInstance.get('bills');
-      const { data: transactions } = dataResponse
+      const {data: response} = await axiosInstance.get('bills')
+      const { data: transactions } = response
       const sortedTransactions = transactions ? transactions.sort((a, b) => new Date(b.billDate) - new Date(a.billDate)) : []
     
       setTransactions(sortedTransactions);

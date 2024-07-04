@@ -17,14 +17,14 @@ export const TransactionDetail = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const { data: dataResponse } = await axiosInstance.get(`bills/${id}`);
-                const { data: transaction } = dataResponse;
+                const { data: response } = await axiosInstance.get(`bills/${id}`);
+                const { data: transaction } = response;
                 setTransaction(transaction);
                 setName(transaction.customer.name);
             } catch (e) {
                 if (e.response.status === 404) {
                     navigate(`/dashboard/transaction`)
-                    toast.error(e.response.data.status.description, {duration: 2000})
+                    toast.error(e.response.data.message, {duration: 2000})
                 }
                 console.error('Error fetching users:', e);
             }
@@ -45,8 +45,9 @@ export const TransactionDetail = () => {
     ]
 
     const transactionDetails = [
-        { label: 'Date :', value: FormattedDate(transaction.billDate) },
-        { label: 'Kode :', value: transaction.id },
+        { label: 'Date', value: FormattedDate(transaction.billDate) },
+        { label: 'Kode', value: transaction.id },
+        { label: 'Admin', value: transaction.user.name },
     ]
         
     const customerDetails = [
@@ -68,7 +69,7 @@ export const TransactionDetail = () => {
                     <div className="flex items-center justify-between mb-8 gap-2">
                         <div className="hidden xs:flex items-center">
                             <GiClothesline className="h-[3rem] w-[3rem] xs:h-[5rem] xs:w-[5rem] mr-2"/>
-                            <div className="text-gray-700 font-semibold text-2xl ">Tarak Company</div>
+                            <div className="text-gray-700 font-semibold text-3xl ">Tarak Company</div>
                         </div>
                         <div className="text-gray-700">
                             <div className="font-bold text-xl mb-2">INVOICE</div>

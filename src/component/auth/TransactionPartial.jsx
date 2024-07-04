@@ -5,7 +5,7 @@ const TransactionPartial = ({ label, type, value, children }) => {
   return (
     <>
       <label className={` text-black p-1 flex items-center gap-1 w-full`}>
-        <div className="w-[80px] p-1 border-2 flex">
+        <div className="w-[100px] p-1 border-2 flex">
           {children}
         </div>  
           <input

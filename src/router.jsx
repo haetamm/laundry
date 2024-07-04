@@ -11,12 +11,10 @@ import { TransactionDetail } from "./pages/TransactionDetail"
 import { CustomerDetail } from "./pages/CustomerDetail"
 import { ProductDetail } from "./pages/ProductDetail"
 import { AdminDetail } from "./pages/AdminDetail"
-import Register from "./pages/Register"
 import LandingPageLayout from "./layout/LandingPageLayout"
 import Home from "./pages/Home"
 import Terms from "./pages/Terms"
 import Services from "./pages/Services"
-
 
 const routerConfig = [
     {
@@ -90,10 +88,6 @@ const routerConfig = [
             {
                 path: 'login',
                 element: <Login />
-            },
-            {
-                path: 'register',
-                element: <Register />
             }
         ]
     },

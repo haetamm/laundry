@@ -23,7 +23,7 @@ const CustomerModalForm = () => {
 
     const createCustomer = async (data) => {
         try {
-            const { data: response } = await axiosInstance.post('customers/', data)
+            const { data: response } = await axiosInstance.post('customers', data)
             const { data: customer } = response
             dispatch({
                 type: "CLOSE"
@@ -32,7 +32,7 @@ const CustomerModalForm = () => {
             toast.success(`customer an. ${customer.name} berhasil ditambahkan`, {duration: 2000})
         } catch (e) {
             console.error(e)
-            toast.error(e.response.data.status.description)
+            toast.error(e.response.data.message)
         }
     }
 

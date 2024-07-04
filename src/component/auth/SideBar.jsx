@@ -26,7 +26,7 @@ const SideBar = () => {
                             <SideBarLink to="/dashboard/transaction" icon={PiFilesFill} label="Transaction" />
                             <SideBarLink to="/dashboard/customer" icon={FaUsersLine} label="Customer" />
                             <SideBarLink to="/dashboard/product" icon={GiCardboardBoxClosed} label="Product" />
-                            {user.role === 'admin' && 
+                            {user.role === 'ADMIN' && 
                                 <SideBarLink to="/dashboard/user" icon={MdAdminPanelSettings} label="Administrator" />
                             }
                         </div>

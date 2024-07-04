@@ -2,13 +2,16 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { IoIosMail } from 'react-icons/io'
 import PasswordToggleIcon from '../PasswordToggleIcon'
 import FormInput from '../FormInput'
 import guestStyle from '../../styles/pages/LoginPage.module.scss'
 import { loginFormSchema } from '../../utils/validation'
-import { Link } from 'react-router-dom'
+import { RiFingerprint2Fill } from 'react-icons/ri'
 
+const fields = [
+  { name: 'username', label: 'Username', type: 'text', icon: <RiFingerprint2Fill className="w-6 h-6" /> },
+  { name: 'password', label: 'Password', type: 'password', icon: <PasswordToggleIcon /> },
+];
 
 const LoginForm = ({ onSubmit, loading, welcome }) => {
     const [showPassword, setShowPassword] = useState(false);
@@ -34,37 +37,26 @@ const LoginForm = ({ onSubmit, loading, welcome }) => {
                 </h1>
             ) : (
                 <>
-                    <Controller
-                        name="username"
-                        control={form.control}
-                        render={({ field, fieldState }) => (
-                            <FormInput
-                                label="Username"
-                                type="text"
-                                name="username"
-                                {...field}
-                                fieldState={fieldState}
-                            >
-                                <IoIosMail className="w-6 h-6" />
-                            </FormInput>
-                        )}
-                    />
-                                
-                    <Controller
-                        name="password"
-                        control={form.control}
-                        render={({ field, fieldState }) => (
-                            <FormInput
-                                label="Password"
-                                type={showPassword ? "text" : "password"}
-                                name="password"
-                                {...field}
-                                fieldState={fieldState}
-                            >
-                                <PasswordToggleIcon showPassword={showPassword} toggleShowPassword={toggleShowPassword} />
-                            </FormInput>
-                        )}
-                    />
+                   {fields.map(({ name, label, type, icon }) => (
+                        <Controller
+                            key={name}
+                            name={name}
+                            control={form.control}
+                            render={({ field, fieldState }) => (
+                                <FormInput
+                                    label={label}
+                                    type={name === 'password' ? (showPassword ? 'text' : 'password') : type}
+                                    name={name}
+                                    {...field}
+                                    fieldState={fieldState}
+                                >
+                                    {name === 'password' ? (
+                                        <PasswordToggleIcon showPassword={showPassword} toggleShowPassword={toggleShowPassword} />
+                                    ) : icon }
+                                </FormInput>
+                            )}
+                        />
+                    ))}
                                 
                     <button
                         className={`${guestStyle.btn} disabled:bg-slate-300 font-bold disabled:cursor-not-allowed bg-slate-600 hover:bg-slate-700`}
@@ -72,7 +64,6 @@ const LoginForm = ({ onSubmit, loading, welcome }) => {
                     >
                         Login
                     </button>
-                    <div className="flex justify-center mt-1 text-white">Don&apos;t have an account? <Link to={'/guest/register'} className="hover:text-red-400 ml-1"> register</Link></div>
                 </>
             )}
         </form>
