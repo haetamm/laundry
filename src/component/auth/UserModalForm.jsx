@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import { userFormSchema } from '../../utils/validation'
+import { registerUserFormSchema } from '../../utils/validation'
 import axiosInstance from '../../utils/api'
 import UserForm from '../UserForm'
 import { useDispatch, useSelector } from 'react-redux'
@@ -16,15 +16,16 @@ const UserModalForm = () => {
             name: '',
             username: '',
             email: '',
+            password: '',
             role: ''
         },
-        resolver: zodResolver(userFormSchema),
+        resolver: zodResolver(registerUserFormSchema),
         mode: 'onChange'
     })
 
     const createUser = async (data) => {
         try {
-            const { data: response } = await axiosInstance.post('users/', data);
+            const { data: response } = await axiosInstance.post('users', data);
             const { data: user } = response
             dispatch({
                 type: "CLOSE"

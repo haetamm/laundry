@@ -23,7 +23,7 @@ const ProductModalForm = () => {
 
     const createProduct = async (data) => {
         try {
-            const { data: response } = await axiosInstance.post('products/', data)
+            const { data: response } = await axiosInstance.post('products', data)
             const { data: product } = response
             dispatch({
                 type: "CLOSE"
@@ -32,7 +32,7 @@ const ProductModalForm = () => {
             toast.success(`product ${product.name} berhasil ditambahkan`, {duration: 2000})
         } catch (e) {
             console.log(e)
-            toast.error(e.response.data.status.description)
+            toast.error(e.response.data.message)
         }
     }
 

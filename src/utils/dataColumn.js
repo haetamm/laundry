@@ -26,5 +26,5 @@ export const transactionColumns = [
 ]
 
 export const rolesData = [
-    { id: '2', key: 'employee' },
+    { id: '2', key: 'EMPLOYEE' },
 ]

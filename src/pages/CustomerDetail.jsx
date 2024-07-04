@@ -35,7 +35,7 @@ export const CustomerDetail = () => {
             } catch (e) {
                 if (e.response.status === 404) {
                     navigate(`/dashboard/customer`)
-                    toast.error(e.response.data.status.description)
+                    toast.error(e.response.data.message)
                 }
                 console.error('Error fetching customers:', e)
             }
@@ -59,14 +59,16 @@ export const CustomerDetail = () => {
             id: customer.id,
         }
         try {
-            const { data: response } = await axiosInstance.put('customers/', customerUpdate);
+            const { data: response } = await axiosInstance.put('customers', customerUpdate);
             const { data: customer } = response
             setCustomer(customer)
             setOpenEdit(false);
             toast.success(`Customer an. ${customer.name} berhasil diupdate`, { duration: 2000 });
         } catch (e) {
-            console.error(e);
-            toast.error(e.response.data.status.description)
+            console.log(e)
+            if (e.response.status === 400) {
+                toast.error(e.response.data.message)
+            }
         }
     }
 

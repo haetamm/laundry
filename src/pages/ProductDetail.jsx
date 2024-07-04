@@ -28,14 +28,14 @@ export const ProductDetail = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const {data: response} = await axiosInstance.get(`products/${productId}`);
+                const { data: response } = await axiosInstance.get(`products/${productId}`);
                 const { data: product } = response
                 setProduct(product)
                 form.reset(product)
             } catch (e) {
                 if (e.response.status === 404) {
                     navigate(`/dashboard/product`)
-                    toast.error(e.response.data.status.description)
+                    toast.error(e.response.data.message)
                 }
                 console.error('Error fetching products:', e)
             }
@@ -59,14 +59,16 @@ export const ProductDetail = () => {
             id: product.id,
         }
         try {
-            const { data: response } = await axiosInstance.put('products/', productUpdate);
+            const { data: response } = await axiosInstance.put('products', productUpdate);
             const { data: product } = response
             setProduct(product)
             setOpenEdit(false)
             toast.success(`product ${product.name} berhasil diupdate`, {duration: 2000})
         } catch (e) {
             console.log(e)
-            toast.error(e.response.data.status.description)
+            if (e.response.status === 400) {
+                toast.error(e.response.data.message)
+            }
         }
     }
 

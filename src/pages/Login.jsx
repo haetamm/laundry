@@ -10,7 +10,6 @@ import LoginForm from '../component/guest/LoginForm'
 import guestStyle from '../styles/pages/LoginPage.module.scss'
 
 const Login = () => {
-
   const dispatch = useDispatch()
   const [loading, setLoading] = useState(false)
   const [welcome, setWelcome] = useState(false)
@@ -40,8 +39,9 @@ const Login = () => {
         setLoading(false)
       }, 3000);
     } catch (e) {
-      console.log(e)
-      toast.error(e.response.data.status.description)
+      if (e.response.status === 400) {
+        toast.error(e.response.data.message)
+      }
       setLoading(false)
     } finally {
       setLoading(false)

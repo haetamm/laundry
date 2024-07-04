@@ -14,8 +14,8 @@ const Product = () => {
   const fetchData = async () => {
     setLoading(true)
     try {
-      const {data: dataResponse} = await axiosInstance.get('products')
-      const { data: products } = dataResponse
+      const { data: response } = await axiosInstance.get('products')
+      const { data: products } = response
       const sortedProducts = products ? products.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) : []
 
       setProducts(sortedProducts)

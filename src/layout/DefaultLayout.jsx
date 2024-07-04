@@ -8,12 +8,11 @@ import Modal from '../component/Modal'
 
 const DefaultLayout = () => {
   const { token } = useSelector((state) => state.user)
-  
 
   if (!token) {
     return <Navigate to={'/guest/login'} />;
   }
-
+  
   return (
     <>
       <NavBar token={token} />

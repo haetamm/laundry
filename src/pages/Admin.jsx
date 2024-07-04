@@ -66,8 +66,7 @@ const Admin = () => {
     action: ['detail', 'delete'],
   })) : []
 
-
-  if (role !== 'admin') {
+  if (role !== 'ADMIN') {
       return <Navigate to={'/dashboard'} />
   }
 

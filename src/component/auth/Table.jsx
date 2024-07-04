@@ -25,26 +25,23 @@ Thead.propTypes = {
     })),
 }
 
-
 const Table = ({ columns, data, loading }) => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-
   const { pathname } = useLocation()
   const pathSegments = pathname.split('/').filter(Boolean)
-  const middleSegment = pathSegments[1] || ''
-
+  const path = pathSegments[1] || ''
 
   const handleAction = (action, {id}) => {
     if (action == 'detail') {
-      navigate(`/dashboard/${middleSegment}/${id}`)
+      navigate(`/dashboard/${path}/${id}`)
     }
     if (action == 'delete') {
       dispatch({
         type: "DELETE",
         payload: {
-          url: `/${middleSegment}s/${id}`,
+          url: `/${path}s/${id}`,
         }
       })
     }

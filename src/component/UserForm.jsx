@@ -12,11 +12,12 @@ const fields = [
   { name: 'name', label: 'Name', type: 'text', icon: <FaUserCircle className="w-6 h-6" /> },
   { name: 'username', label: 'Username', type: 'text', icon: <RiFingerprint2Fill className="w-6 h-6" /> },
   { name: 'email', label: 'Email', type: 'email', icon: <IoIosMail className="w-6 h-6" /> },
-]
+  { name: 'password', label: 'Password', type: 'password', icon: <PasswordToggleIcon /> }, // Menambahkan field password di sini
+];
 
-const UserForm = ({ form, openEdit, auth = true }) => {
+const UserForm = ({ form, openEdit, auth = true, placeholder }) => {
   const [showPassword, setShowPassword] = useState(false)
-
+  
   const toggleShowPassword = () => {
       setShowPassword(!showPassword)
   }
@@ -34,40 +35,24 @@ const UserForm = ({ form, openEdit, auth = true }) => {
           render={({ field, fieldState }) => (
             <FormInput
               label={label}
-              type={type}
+              type={name === 'password' ? (showPassword ? 'text' : 'password') : type}
               name={name}
               {...field}
               fieldState={fieldState}
               auth={auth}
               openEdit={openEdit}
+              placeholder={placeholder || label}
             >
               {auth ? <div>{label}</div> : icon}
+
+              {name === 'password' && !auth && (
+                <PasswordToggleIcon showPassword={showPassword} toggleShowPassword={toggleShowPassword} />
+              )}
             </FormInput>
           )}
         />
       ))}
 
-      {!auth && 
-        <>
-          <Controller
-              name="password"
-              control={form.control}
-              render={({ field, fieldState }) => (
-                  <FormInput
-                      label="Password"
-                      type={showPassword ? "text" : "password"}
-                      name="password"
-                      {...field}
-                      fieldState={fieldState}
-                  >
-                      <PasswordToggleIcon showPassword={showPassword} toggleShowPassword={toggleShowPassword} />
-                  </FormInput>
-              )}
-          />
-        
-        </>
-      }
-      
       <Controller
         name="role"
         control={form.control}
@@ -92,6 +77,7 @@ const UserForm = ({ form, openEdit, auth = true }) => {
           </>
         )}
       />
+
     </form>
   );
 };
@@ -99,7 +85,8 @@ const UserForm = ({ form, openEdit, auth = true }) => {
 UserForm.propTypes = {
   form: PropTypes.object.isRequired,
   openEdit: PropTypes.bool.isRequired,
-  auth: PropTypes.bool
+  auth: PropTypes.bool,
+  placeholder: PropTypes.string
 };
 
 export default UserForm
