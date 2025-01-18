@@ -1,10 +1,20 @@
-import { combineReducers } from "redux";
-import { userReducer } from "./user";
-import { modalReducer } from "./modal";
-import { navbarGuestReducer } from "./navbarGuest";
+import { configureStore } from "@reduxjs/toolkit";
+import sliceLoginReducer from "./sliceLogin";
+import sliceUserReducer from "./sliceUser";
+import modalReducer from "./sliceModal";
+import transactionReducer from "./sliceTransaction";
+import productReducer from "./sliceProduct";
+import customerReducer from "./sliceCustomer";
+import adminReducer from "./sliceAdmin";
 
-export const reducers = combineReducers({
-    user: userReducer,
+export const store = configureStore({
+  reducer: {
+    login: sliceLoginReducer,
+    user: sliceUserReducer,
     modal: modalReducer,
-    navbarGuest: navbarGuestReducer,
-})
+    transaction: transactionReducer,
+    product: productReducer,
+    customer: customerReducer,
+    admin: adminReducer,
+  },
+});

@@ -1,67 +1,35 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import { Helmet } from 'react-helmet-async'
-import Table from '../component/auth/Table'
-import axiosInstance from '../utils/api'
-import { transactionColumns } from '../utils/dataColumn'
-import { useDispatch } from 'react-redux'
-import HeaderPage from '../component/auth/HeaderPage'
+import React, { useEffect } from "react";
+import { Helmet } from "react-helmet-async";
+import Table from "../component/auth/Table";
+import { transactionColumns } from "../utils/dataColumn";
+import { useDispatch, useSelector } from "react-redux";
+import HeaderPage from "../component/auth/HeaderPage";
+import { fetchTransactions } from "../store/sliceTransaction";
+import { modalCreate } from "../store/sliceModal";
 
 const Transaction = () => {
-  const dispatch = useDispatch()
-  const [transactions, setTransactions] = useState([])
-  const [loading, setLoading] = useState(false)
-
-  const fetchData = async () => {
-    setLoading(true)
-    try {
-      const {data: response} = await axiosInstance.get('bills')
-      const { data: transactions } = response
-      const sortedTransactions = transactions ? transactions.sort((a, b) => new Date(b.billDate) - new Date(a.billDate)) : []
-    
-      setTransactions(sortedTransactions);
-    } catch (error) {
-      console.error('Error fetching users:', error);
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const setFetch = useCallback(() => {
-    dispatch({
-      type: "SET_FETCH",
-      payload: {
-        fetch: fetchData
-      }
-    })
-  }, [dispatch])
+  const dispatch = useDispatch();
+  const { transactions, loading } = useSelector((state) => state.transaction);
 
   useEffect(() => {
-    fetchData()
-  }, [])
+    dispatch(fetchTransactions());
+  }, [dispatch]);
 
-  useEffect(() => {
-    setFetch()
-  }, [setFetch])
-  
-  const columns = transactionColumns
+  const columns = transactionColumns;
 
-  const data = transactions ? transactions.map((transaction) => ({
-    id: transaction.id,
-    kode: transaction.id,
-    customer: transaction.customer.name,
-    product: transaction.billDetails.length,
-    action: ['detail'],
-  })) : []
+  const data = transactions
+    ? transactions.map((transaction) => ({
+        id: transaction.id,
+        kode: `${transaction.id.slice(0, 6)}...`,
+        customer: transaction.customer.name,
+        product: transaction.billDetails.length,
+        action: ["detail"],
+      }))
+    : [];
 
   const handleAddButton = () => {
-    dispatch({
-      type: "CREATE",
-      payload: {
-        url: `transactions`,
-        fetch: fetchData
-      }
-    })
-  }
+    dispatch(modalCreate({ url: "transactions" }));
+  };
 
   return (
     <>
@@ -76,7 +44,7 @@ const Transaction = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Transaction
+export default Transaction;

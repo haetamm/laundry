@@ -1,73 +1,40 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import { Helmet } from 'react-helmet-async'
-import Table from '../component/auth/Table'
-import { useDispatch, useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
-import axiosInstance from '../utils/api';
-import { adminColumns } from '../utils/dataColumn';
-import HeaderPage from '../component/auth/HeaderPage';
+import React, { useEffect } from "react";
+import { Helmet } from "react-helmet-async";
+import Table from "../component/auth/Table";
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
+import { adminColumns } from "../utils/dataColumn";
+import HeaderPage from "../component/auth/HeaderPage";
+import { fetchAdmins } from "../store/sliceAdmin";
+import { modalCreate } from "../store/sliceModal";
 
 const Admin = () => {
-  const dispatch = useDispatch()
-  const {role} = useSelector((state) => state.user)
-  const [users, setUsers] = useState([])
-  const [loading, setLoading] = useState(false)
-  
-  const fetchData = async () => {
-    setLoading(true)
-    try {
-      const {data: response} = await axiosInstance.get('users')
-      const { data: users } = response
-      const sortedUsers = users ? users.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) : []
-
-      setUsers(sortedUsers)
-    } catch (error) {
-      console.error('Error fetching users:', error)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const setFetch = useCallback(() => {
-    dispatch({
-      type: "SET_FETCH",
-      payload: {
-        fetch: fetchData
-      }
-    })
-  }, [dispatch])
+  const dispatch = useDispatch();
+  const { role } = useSelector((state) => state.user);
+  const { admins, loading } = useSelector((state) => state.admin);
 
   useEffect(() => {
-    fetchData()
-  }, [])
+    dispatch(fetchAdmins());
+  }, [dispatch]);
 
-  useEffect(() => {
-    setFetch()
-  }, [setFetch])
-
-  
   const handleAddButton = () => {
-    dispatch({
-      type: "CREATE",
-      payload: {
-        url: `users`,
-        fetch: fetchData
-      }
-    })
-  }
-        
-  const columns = adminColumns
-  
-  const data = users ? users.map((user) => ({
-    id: user.id,
-    name: user.name,
-    username: user.username,
-    email: user.email,
-    action: ['detail', 'delete'],
-  })) : []
+    dispatch(modalCreate({ url: "users" }));
+  };
 
-  if (role !== 'ADMIN') {
-      return <Navigate to={'/dashboard'} />
+  const columns = adminColumns;
+
+  const data = admins
+    ? admins.map((admin) => ({
+        id: admin.id,
+        name: admin.name,
+        username: admin.username,
+        email: admin.email,
+        action: ["update", "delete"],
+      }))
+    : [];
+
+  if (role !== "ADMIN") {
+    return <Navigate to={"/dashboard"} />;
   }
 
   return (
@@ -83,7 +50,7 @@ const Admin = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Admin
+export default Admin;

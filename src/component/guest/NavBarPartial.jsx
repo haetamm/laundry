@@ -1,29 +1,26 @@
-import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
-
-import navbarPartial from '../../styles/component/navbarPartial.module.scss';
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
+import navbarPartial from "../../styles/component/navbarPartial.module.scss";
+import { isActive, menuFields, scrollTop } from "../../utils/helper";
 
 const NavBarPartial = () => {
-  const location = useLocation();
-
-  const isActive = (path) => location.pathname === path;
+  const { pathname } = useLocation();
 
   return (
     <>
       <div className={`${navbarPartial.menu} hidden xs:block`}>
         <ul className={`${navbarPartial.mainMenu}`}>
-          <li className={isActive('/') ? navbarPartial.active : ''}>
-            <Link to={'/'}>Home</Link>
-          </li>
-          <li className={isActive('/services') ? navbarPartial.active : ''}>
-            <Link to={'/services'}>Services</Link>
-          </li>
-          <li className={isActive('/terms') ? navbarPartial.active : ''}>
-            <Link to={'/terms'}>Terms</Link>
-          </li>
-          <li className={isActive('/guest/login') ? navbarPartial.active : ''}>
-            <Link to={'/guest/login'}>Login</Link>
-          </li>
+          {menuFields.map(({ path, label }, index) => (
+            <li
+              key={index}
+              onClick={() => {
+                scrollTop();
+              }}
+              className={isActive(pathname, path) ? navbarPartial.active : ""}
+            >
+              <Link to={path}>{label}</Link>
+            </li>
+          ))}
         </ul>
       </div>
     </>
