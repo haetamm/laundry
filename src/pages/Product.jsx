@@ -1,68 +1,36 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import { Helmet } from 'react-helmet-async'
-import Table from '../component/auth/Table'
-import axiosInstance from '../utils/api'
-import { productColumns } from '../utils/dataColumn'
-import { useDispatch } from 'react-redux'
-import HeaderPage from '../component/auth/HeaderPage'
+import React, { useEffect } from "react";
+import { Helmet } from "react-helmet-async";
+import Table from "../component/auth/Table";
+import { productColumns } from "../utils/dataColumn";
+import HeaderPage from "../component/auth/HeaderPage";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProducts } from "../store/sliceProduct";
+import { modalCreate } from "../store/sliceModal";
 
 const Product = () => {
-  const dispatch = useDispatch()
-  const [products, setProducts] = useState([])
-  const [loading, setLoading] = useState(false)
-
-  const fetchData = async () => {
-    setLoading(true)
-    try {
-      const { data: response } = await axiosInstance.get('products')
-      const { data: products } = response
-      const sortedProducts = products ? products.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) : []
-
-      setProducts(sortedProducts)
-    } catch (error) {
-      console.error('Error fetching users:', error);
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const setFetch = useCallback(() => {
-    dispatch({
-      type: "SET_FETCH",
-      payload: {
-        fetch: fetchData
-      }
-    })
-  }, [dispatch])
+  const dispatch = useDispatch();
+  const { products, loading } = useSelector((state) => state.product);
 
   useEffect(() => {
-    fetchData()
-  }, [])
-
-  useEffect(() => {
-    setFetch()
-  }, [setFetch])
+    dispatch(fetchProducts());
+  }, [dispatch]);
 
   const handleAddButton = () => {
-    dispatch({
-      type: "CREATE",
-      payload: {
-        url: `products`,
-        fetch: fetchData
-      }
-    })
-  }
+    dispatch(modalCreate({ url: "products" }));
+  };
 
-  const columns = productColumns
+  const columns = productColumns;
 
-  const data = products ? products.map((product) => ({
-    id: product.id,
-    kode: product.id,
-    name: product.name,
-    price: product.price,
-    action: ['detail', 'delete'],
-  })) : []
-  
+  const data = products
+    ? products.map((product) => ({
+        id: product.id,
+        kode: `${product.id.slice(0, 6)}...`,
+        name: product.name,
+        price: product.price,
+        action: ["update", "delete"],
+      }))
+    : [];
+
   return (
     <>
       <Helmet>
@@ -76,7 +44,7 @@ const Product = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Product
+export default Product;

@@ -1,18 +1,13 @@
-import React from 'react'
-import { Controller } from 'react-hook-form'
-import PropTypes from 'prop-types'
-import FormInput from '../FormInput'
-
-const fields = [
-  { name: 'name', label: 'Name', type: 'text' },
-  { name: 'price', label: 'Price', type: 'number' },
-  { name: 'type', label: 'Type', type: 'text' }
-]
+import React from "react";
+import { Controller } from "react-hook-form";
+import PropTypes from "prop-types";
+import FormInput from "../FormInput";
+import { fieldsProduct } from "../../utils/fields";
 
 const ProductForm = ({ form, openEdit }) => {
   return (
     <form className="text-black gap-5 mt-5">
-      {fields.map(({ name, label, type }) => (
+      {fieldsProduct.map(({ name, label, type }) => (
         <Controller
           key={name}
           name={name}
@@ -33,12 +28,12 @@ const ProductForm = ({ form, openEdit }) => {
         />
       ))}
     </form>
-  )
-}
+  );
+};
 
 ProductForm.propTypes = {
   form: PropTypes.object.isRequired,
   openEdit: PropTypes.bool.isRequired,
-}
+};
 
-export default ProductForm
+export default ProductForm;

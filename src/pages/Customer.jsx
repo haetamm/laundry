@@ -1,68 +1,35 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import { Helmet } from 'react-helmet-async'
-import Table from '../component/auth/Table'
-import axiosInstance from '../utils/api'
-import { customerColumns } from '../utils/dataColumn'
-import { useDispatch } from 'react-redux'
-import HeaderPage from '../component/auth/HeaderPage'
+import React, { useEffect } from "react";
+import { Helmet } from "react-helmet-async";
+import Table from "../component/auth/Table";
+import { customerColumns } from "../utils/dataColumn";
+import HeaderPage from "../component/auth/HeaderPage";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCustomers } from "../store/sliceCustomer";
+import { modalCreate } from "../store/sliceModal";
 
 const Customer = () => {
-  const dispatch = useDispatch()
-  const [customers, setCustomers] = useState([])
-  const [loading, setLoading] = useState(false)
-
-  const fetchData = async () => {
-    setLoading(true)
-    try {
-      const { data: response } = await axiosInstance.get('customers')
-      const { data: customers } = response
-      const sortedCustomers = customers ? customers.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) : []
-    
-      setCustomers(sortedCustomers);
-    } catch (error) {
-      console.error('Error fetching users:', error)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const setFetch = useCallback(() => {
-    dispatch({
-      type: "SET_FETCH",
-      payload: {
-        fetch: fetchData
-      }
-    })
-  }, [dispatch])
+  const dispatch = useDispatch();
+  const { customers, loading } = useSelector((state) => state.customer);
 
   useEffect(() => {
-    fetchData()
-  }, [])
+    dispatch(fetchCustomers());
+  }, [dispatch]);
 
-  useEffect(() => {
-    setFetch()
-  }, [setFetch])
+  const handleAddButton = () => {
+    dispatch(modalCreate({ url: "customers" }));
+  };
 
-   const handleAddButton = () => {
-    dispatch({
-      type: "CREATE",
-      payload: {
-        url: `customers`,
-        fetch: fetchData
-      }
-    })
-  }
+  const columns = customerColumns;
 
-  const columns = customerColumns
+  const data = customers
+    ? customers.map((customer) => ({
+        id: customer.id,
+        kode: `${customer.id.slice(0, 6)}...`,
+        name: customer.name,
+        action: ["update", "delete"],
+      }))
+    : [];
 
-  const data = customers ? customers.map((customer) => ({
-    id: customer.id,
-    kode: customer.id,
-    name: customer.name,
-    action: ['detail', 'delete'],
-  })) : []
-
-  
   return (
     <>
       <Helmet>
@@ -76,7 +43,7 @@ const Customer = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Customer
+export default Customer;

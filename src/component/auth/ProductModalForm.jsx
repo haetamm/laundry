@@ -1,54 +1,68 @@
-import { zodResolver } from '@hookform/resolvers/zod'
-import React from 'react'
-import { useForm } from 'react-hook-form'
-import { productFormSchema } from '../../utils/validation'
-import axiosInstance from '../../utils/api'
-import ProductForm from './ProductForm'
-import { useDispatch, useSelector } from 'react-redux'
-import { toast } from 'sonner'
+import { zodResolver } from "@hookform/resolvers/zod";
+import React, { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { productFormSchema } from "../../utils/validation";
+import ProductForm from "./ProductForm";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  createProduct,
+  getProductById,
+  updateProduct,
+} from "../../store/sliceProduct";
 
 const ProductModalForm = () => {
-    const dispatch = useDispatch()
-    const { fetch } = useSelector((state) => state.modal)
+  const dispatch = useDispatch();
+  const { id } = useSelector((state) => state.modal);
+  const { product, loading } = useSelector((state) => state.product);
 
-    const form = useForm({
-        defaultValues: {
-            name: '',
-            price: '',
-            type: ''
-        },
-        resolver: zodResolver(productFormSchema),
-        mode: 'onChange'
-    })
+  const form = useForm({
+    defaultValues: {
+      name: "",
+      price: "",
+      type: "",
+    },
+    resolver: zodResolver(productFormSchema),
+    mode: "onChange",
+  });
 
-    const createProduct = async (data) => {
-        try {
-            const { data: response } = await axiosInstance.post('products', data)
-            const { data: product } = response
-            dispatch({
-                type: "CLOSE"
-            })
-            fetch()
-            toast.success(`product ${product.name} berhasil ditambahkan`, {duration: 2000})
-        } catch (e) {
-            console.log(e)
-            toast.error(e.response.data.message)
-        }
+  useEffect(() => {
+    if (id) {
+      dispatch(getProductById(id));
     }
+  }, [id, dispatch]);
 
-    return (
-        <>
-            <ProductForm form={form} openEdit={true} />
-                    
-            <button
-                className={`disabled:bg-slate-300 font-bold disabled:cursor-not-allowed justify-center text-white text-lg bg-black w-full hover:bg-slate-700 border-2 mb-2 p-3 flex items-center gap-1`}
-                disabled={!form.formState.isValid || form.formState.isSubmitting}
-                onClick={form.handleSubmit(createProduct)}
-            >
-                Create Product
-            </button>
-        </>
-    )
-}
+  useEffect(() => {
+    if (id && product) {
+      form.reset({
+        name: product.name || "",
+        price: product.price || "",
+        type: product.type || "",
+      });
+    }
+  }, [product, form, id]);
 
-export default ProductModalForm
+  const onSubmit = (data) => {
+    if (id) {
+      dispatch(updateProduct({ ...data, id }));
+    }
+    {
+      dispatch(createProduct(data));
+    }
+  };
+
+  return (
+    <>
+      <ProductForm form={form} openEdit={true} />
+
+      <button
+        className={`disabled:bg-slate-300 font-bold disabled:cursor-not-allowed justify-center text-white text-lg bg-black w-full hover:bg-slate-700 border-2 mb-2 p-3 flex items-center gap-1`}
+        disabled={!form.formState.isValid || form.formState.isSubmitting}
+        onClick={form.handleSubmit(onSubmit)}
+      >
+        {loading ? "Loading" : id ? "Update Product" : "Create Product"}
+      </button>
+    </>
+  );
+};
+
+export default ProductModalForm;

@@ -1,11 +1,11 @@
-import React from 'react';
-import { dataTerms } from '../utils/dataTerms';
-import { Helmet } from 'react-helmet-async';
+import React from "react";
+import { dataTerms } from "../utils/dataTerms";
+import { Helmet } from "react-helmet-async";
 
-import '../styles/component/terms.scss'
+import "../styles/component/terms.scss";
 
 const Terms = () => {
-  const terms = dataTerms
+  const terms = dataTerms;
   return (
     <>
       <Helmet>
@@ -17,7 +17,9 @@ const Terms = () => {
           <div className=" w-full md:max-w-3xl flex justify-center px-0 xs:px-3">
             <div className="paper pb-8 w-full px-3">
               <div className="flex justify-center items-center mt-14">
-                <div className="text-4xl border-none xs:border-b-4 xs:border-double">Terms And Conditions</div>
+                <div className="text-4xl border-none xs:border-b-4 xs:border-double">
+                  Terms And Conditions
+                </div>
               </div>
               <table className="w-full font-normal lg:text-lg mt-3">
                 <tbody>
@@ -29,7 +31,7 @@ const Terms = () => {
                   ))}
                 </tbody>
               </table>
-              </div>
+            </div>
           </div>
         </div>
       </div>
