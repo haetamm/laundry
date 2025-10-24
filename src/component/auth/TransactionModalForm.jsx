@@ -210,7 +210,7 @@ const TransactionModalForm = () => {
       <button
         type="button"
         onClick={addProduct}
-        className="text-white bg-black border-2 p-2 mb-2 w-full hover:bg-slate-700 border-slate-200"
+        className="text-white bg-gradient-to-r from-blue-500 to-teal-500 hover:from-blue-400 hover:to-teal-400 transition-all border-2 p-2 mb-2 w-full hover:bg-slate-700 border-slate-200"
       >
         Add Another Product
       </button>
@@ -229,7 +229,7 @@ const TransactionModalForm = () => {
       </div>
       <button
         type="submit"
-        className="disabled:bg-slate-300 font-bold disabled:cursor-not-allowed justify-center text-white text-lg bg-black w-full hover:bg-slate-700 border-2 mb-2 p-3 flex items-center gap-1"
+        className="disabled:bg-slate-300 font-bold disabled:cursor-not-allowed justify-center text-white text-lg bg-gradient-to-r from-blue-500 to-teal-500 hover:from-blue-400 hover:to-teal-400 transition-all w-full border-2 mb-2 p-3 flex items-center gap-1"
       >
         Create Transaction
       </button>

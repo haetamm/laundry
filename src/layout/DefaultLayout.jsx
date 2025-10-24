@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Navigate, Outlet } from "react-router-dom";
 import { Toaster } from "sonner";
 import SideBar from "../component/auth/SideBar";
-import NavBar from "../component/NavBar";
 import Modal from "../component/Modal";
 import { setUser } from "../store/sliceUser";
 import Loader from "../component/auth/Loader";
@@ -26,9 +25,10 @@ const DefaultLayout = () => {
 
   return (
     <>
-      <NavBar token={token} />
-      <SideBar />
-      <Outlet />
+      <div className="kontener mx-auto">
+        <SideBar />
+        <Outlet />
+      </div>
       <Toaster className="text-lg" position="top-right" />
       <Modal />
     </>

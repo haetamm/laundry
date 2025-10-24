@@ -55,7 +55,7 @@ const ProductModalForm = () => {
       <ProductForm form={form} openEdit={true} />
 
       <button
-        className={`disabled:bg-slate-300 font-bold disabled:cursor-not-allowed justify-center text-white text-lg bg-black w-full hover:bg-slate-700 border-2 mb-2 p-3 flex items-center gap-1`}
+        className={` font-bold disabled:cursor-not-allowed justify-center text-white text-lg bg-gradient-to-r from-blue-500 to-teal-500 disabled:bg-slate-500 hover:from-blue-400 hover:to-teal-400 transition-all w-full hover:bg-slate-700 border-2 mb-2 p-3 flex items-center gap-1`}
         disabled={!form.formState.isValid || form.formState.isSubmitting}
         onClick={form.handleSubmit(onSubmit)}
       >

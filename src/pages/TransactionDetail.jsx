@@ -3,7 +3,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import TransactionPartial from "../component/auth/TransactionPartial";
 import { FormattedDate, calculateTotalPrice, formatNum } from "../utils/helper";
-import { IoReloadCircle } from "react-icons/io5";
 import { GiClothesline } from "react-icons/gi";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
@@ -47,7 +46,10 @@ export const TransactionDetail = () => {
   if (loading) {
     return (
       <div className="w-screen  h-[calc(100vh-180px)] xs:max-h-[calc(100vh-70px)] md:max-h-[calc(100vh-170px)] flex justify-center items-center xs:mt-14">
-        <IoReloadCircle className="h-14 w-14 animate-spin" />
+        <div className="flex justify-center items-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+          <span className="ml-3">Loading data...</span>
+        </div>
       </div>
     );
   }
@@ -62,8 +64,8 @@ export const TransactionDetail = () => {
         <title>{`Transaction An. ${name}`}</title>
         <meta name="description" content="Detail Transaction page" />
       </Helmet>
-      <div className="mt-[60px] mx-auto mb-[3.5rem] xs:mb-0 xs:ml-[70px] xl:ml-[16rem] overflow-auto items-center">
-        <div className="bg-white rounded-lg px-3 md:px-8 mx-auto py-10 max-w-4xl ">
+      <div className=" mx-auto mb-[3.5rem] xs:mb-0 xs:ml-[70px] xl:ml-[16rem] overflow-auto items-center">
+        <div className="bg-white rounded-lg px-3 md:px-8 mx-auto py-5 max-w-4xl ">
           <div className="flex justify-end md:mb-0">
             <FaArrowLeftLong
               onClick={() => navigate(-1)}

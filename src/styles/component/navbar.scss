@@ -12,10 +12,14 @@
 
 .wrap-navbar {
   position: fixed;
-  width: calc(100%);
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
   margin-top: 0;
   height: 70px;
   color: var(--navbar-light-primary);
+  transition: top 0.3s;
 
   .btn-navbar {
     background-color: transparent;
@@ -29,6 +33,7 @@
   }
 }
 
+/* Dropdown styling */
 .dropdown-container {
   position: absolute;
   width: 180px;
@@ -37,7 +42,7 @@
 
   .dropdown-list {
     list-style: none;
-    padding: 10px 0 10px 0;
+    padding: 10px 0;
     margin-top: 120px;
     background-color: black;
     border-radius: 0.7rem;
@@ -45,7 +50,7 @@
 
     .dropdown-list-item {
       text-align: start;
-      padding: 10px 10px 10px 10px;
+      padding: 10px;
       cursor: pointer;
       border-radius: 0.7rem;
     }
@@ -56,6 +61,7 @@
   }
 }
 
+/* Responsiveness */
 @media (min-width: 360px) {
   .dropdown-container {
     width: 200px;
@@ -75,7 +81,6 @@
 
   .dropdown-container {
     width: 180px;
-    right: inherit;
     margin-top: 23px;
     right: 5px;
   }
@@ -87,10 +92,13 @@
   }
 }
 
-// @media (min-width: 1280px) {
-//     .wrap-navbar {
-//         margin-left: 16rem;
-//         width: 100%;
-//         width: calc(100% - 16rem);
-//     }
-// }
+/* ✅ Bagian penting: wrap-navbar jadi max 1370px dan center saat layar besar */
+@media (min-width: 1370px) {
+  .wrap-navbar {
+    max-width: 1370px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    box-shadow: none;
+  }
+}

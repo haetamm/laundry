@@ -6,6 +6,7 @@ import HeaderPage from "../component/auth/HeaderPage";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../store/sliceProduct";
 import { modalCreate } from "../store/sliceModal";
+import CardProduct from "../component/auth/CardProduct";
 
 const Product = () => {
   const dispatch = useDispatch();
@@ -37,10 +38,11 @@ const Product = () => {
         <title>Product</title>
         <meta name="description" content="Product page" />
       </Helmet>
-      <div className="mt-[60px] mx-auto mb-0 xs:ml-[70px] xl:ml-[16rem] h-screen overflow-auto items-center px-2">
+      <div className="mt-[75px] xs:mt-0 pb-[90px] xs:pb-0 mx-auto mb-0 xs:ml-[70px] xl:ml-[16rem] h-screen overflow-auto items-center px-2">
         <HeaderPage title="Product" handleAddButton={handleAddButton} />
         <div className="mt-5">
           <Table columns={columns} data={data} loading={loading} />
+          <CardProduct data={data} loading={loading} />
         </div>
       </div>
     </>

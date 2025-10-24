@@ -1,4 +1,3 @@
-
 ## Backend -> [here](https://github.com/THaetami/express-prisma-react-fullstack/tree/laundry-rest-api/src)
 
 ### Setup
@@ -54,3 +53,21 @@ yarn build
 # bun
 bun run build
 ```
+
+<br>
+
+<div align="center">
+  <img src="screenshots/trans-customer.jpg" alt="Screenshot 2" style="max-width:100%; height:auto; border:1px solid #ddd; border-radius:8px;">
+</div>
+
+<br>
+
+<div align="center">
+  <img src="screenshots/product-admin.jpg" alt="Screenshot 2" style="max-width:100%; height:auto; border:1px solid #ddd; border-radius:8px;">
+</div>
+
+<br>
+
+<div align="center">
+  <img src="screenshots/detail-trans.jpg" alt="Screenshot 2" style="max-width:100%; height:auto; border:1px solid #ddd; border-radius:8px;">
+</div>

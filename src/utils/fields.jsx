@@ -6,6 +6,7 @@ import { GiCardboardBoxClosed } from "react-icons/gi";
 import { MdAdminPanelSettings } from "react-icons/md";
 import { FaUserCircle } from "react-icons/fa";
 import { IoIosMail } from "react-icons/io";
+import { FiLogOut } from "react-icons/fi";
 
 export const fields = [
   {
@@ -32,6 +33,7 @@ export const sidebarItemLink = (role) =>
       icon: MdAdminPanelSettings,
       label: "Administrator",
     },
+    { to: "/logout", icon: FiLogOut, label: "Logout", isLogout: true }, // <=== tambah ini
   ].filter(Boolean);
 
 export const fieldsUser = [

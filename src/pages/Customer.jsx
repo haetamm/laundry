@@ -6,6 +6,7 @@ import HeaderPage from "../component/auth/HeaderPage";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCustomers } from "../store/sliceCustomer";
 import { modalCreate } from "../store/sliceModal";
+import CardCustomer from "../component/auth/CardCustomer";
 
 const Customer = () => {
   const dispatch = useDispatch();
@@ -36,10 +37,11 @@ const Customer = () => {
         <title>Customer</title>
         <meta name="description" content="Customer page" />
       </Helmet>
-      <div className="mt-[60px] mx-auto mb-0 xs:ml-[70px] xl:ml-[16rem] h-screen overflow-auto items-center px-2">
+      <div className="mt-[75px] xs:mt-0 pb-[90px] xs:pb-0 mx-auto mb-0 xs:ml-[70px] xl:ml-[16rem] h-screen overflow-auto items-center px-2">
         <HeaderPage title="Customer" handleAddButton={handleAddButton} />
         <div className="mt-5">
           <Table columns={columns} data={data} loading={loading} />
+          <CardCustomer data={data} loading={loading} />
         </div>
       </div>
     </>

@@ -7,23 +7,18 @@ export const FormattedDate = (dateStr) => {
 };
 
 export const getActionClass = (action) => {
-  let actionClass = "action-button md:m-1 m-1 p-[2px] w-[50px] ";
-
-  switch (action) {
-    case "delete":
-      actionClass += "bg-red-600";
-      break;
-    case "update":
-      actionClass += "bg-yellow-600";
-      break;
+  const baseClass = "px-3 py-1 text-sm rounded border transition-colors font-medium";
+  
+  switch(action) {
     case "detail":
-      actionClass += "bg-green-600";
-      break;
+      return `${baseClass} bg-blue-100 text-blue-700 border-blue-200 hover:bg-blue-200`;
+    case "update":
+      return `${baseClass} bg-teal-100 text-teal-700 border-teal-200 hover:bg-teal-200`;
+    case "delete":
+      return `${baseClass} bg-red-100 text-red-700 border-red-200 hover:bg-red-200`;
     default:
-      actionClass += "bg-slate-300";
+      return `${baseClass} bg-gray-100 text-gray-700 border-gray-200 hover:bg-gray-200`;
   }
-
-  return actionClass;
 };
 
 export const calculateTotalPrice = (products) => {

@@ -7,6 +7,7 @@ import { adminColumns } from "../utils/dataColumn";
 import HeaderPage from "../component/auth/HeaderPage";
 import { fetchAdmins } from "../store/sliceAdmin";
 import { modalCreate } from "../store/sliceModal";
+import CardUser from "../component/auth/CardUser";
 
 const Admin = () => {
   const dispatch = useDispatch();
@@ -43,10 +44,11 @@ const Admin = () => {
         <title>Admin</title>
         <meta name="description" content="Admin page" />
       </Helmet>
-      <div className="mt-[60px] mx-auto mb-0 xs:ml-[70px] xl:ml-[16rem] h-screen overflow-auto items-center px-2">
+      <div className="mt-[75px] xs:mt-0 pb-[90px] xs:pb-0 mx-auto mb-0 xs:ml-[70px] xl:ml-[16rem] h-screen overflow-auto items-center px-2">
         <HeaderPage title="Admin" handleAddButton={handleAddButton} />
         <div className="mt-5">
           <Table columns={columns} data={data} loading={loading} />
+          <CardUser data={data} loading={loading} />
         </div>
       </div>
     </>
